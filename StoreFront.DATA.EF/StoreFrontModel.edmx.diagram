@@ -4,12 +4,12 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="d2a7dd02cf5c4a07b11f03d61523317b" Name="Diagram1">
+      <Diagram DiagramId="0ec308bd05704744ad900a97f875995e" Name="Diagram1">
         <EntityTypeShape EntityType="StoreFrontModel.Category" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
         <EntityTypeShape EntityType="StoreFrontModel.Department" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="StoreFrontModel.Employee" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="StoreFrontModel.Product" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="StoreFrontModel.StockStatu" Width="1.5" PointX="0.75" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="StoreFrontModel.StockStatus" Width="1.5" PointX="0.75" PointY="8.5" IsExpanded="true" />
         <AssociationConnector Association="StoreFrontModel.FK_Products_Categories" ManuallyRouted="false" />
         <AssociationConnector Association="StoreFrontModel.FK_Employees_Department" ManuallyRouted="false" />
         <AssociationConnector Association="StoreFrontModel.FK_Employees_Employees" ManuallyRouted="false" />

@@ -12,10 +12,10 @@ namespace StoreFront.DATA.EF
     using System;
     using System.Collections.Generic;
     
-    public partial class StockStatu
+    public partial class StockStatus
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public StockStatu()
+        public StockStatus()
         {
             this.Products = new HashSet<Product>();
         }

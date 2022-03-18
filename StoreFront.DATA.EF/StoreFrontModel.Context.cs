@@ -29,6 +29,6 @@ namespace StoreFront.DATA.EF
         public virtual DbSet<Department> Departments { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<Product> Products { get; set; }
-        public virtual DbSet<StockStatu> StockStatus { get; set; }
+        public virtual DbSet<StockStatus> StockStatus1 { get; set; }
     }
 }

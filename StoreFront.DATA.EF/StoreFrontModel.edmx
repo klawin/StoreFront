@@ -167,9 +167,9 @@
           <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="ProductImage" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Category" Relationship="Self.FK_Products_Categories" FromRole="Products" ToRole="Categories" />
-          <NavigationProperty Name="StockStatu" Relationship="Self.FK_Products_StockStatus" FromRole="Products" ToRole="StockStatus" />
+          <NavigationProperty Name="StockStatus" Relationship="Self.FK_Products_StockStatus" FromRole="Products" ToRole="StockStatus" />
         </EntityType>
-        <EntityType Name="StockStatu">
+        <EntityType Name="StockStatus">
           <Key>
             <PropertyRef Name="StatusID" />
           </Key>
@@ -214,7 +214,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Products_StockStatus">
-          <End Role="StockStatus" Type="Self.StockStatu" Multiplicity="1" />
+          <End Role="StockStatus" Type="StoreFrontModel.StockStatus" Multiplicity="1" />
           <End Role="Products" Type="Self.Product" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="StockStatus">
@@ -230,7 +230,7 @@
           <EntitySet Name="Departments" EntityType="Self.Department" />
           <EntitySet Name="Employees" EntityType="Self.Employee" />
           <EntitySet Name="Products" EntityType="Self.Product" />
-          <EntitySet Name="StockStatus" EntityType="Self.StockStatu" />
+          <EntitySet Name="StockStatus1" EntityType="StoreFrontModel.StockStatus" />
           <AssociationSet Name="FK_Products_Categories" Association="Self.FK_Products_Categories">
             <End Role="Categories" EntitySet="Categories" />
             <End Role="Products" EntitySet="Products" />
@@ -244,7 +244,7 @@
             <End Role="Employees1" EntitySet="Employees" />
           </AssociationSet>
           <AssociationSet Name="FK_Products_StockStatus" Association="Self.FK_Products_StockStatus">
-            <End Role="StockStatus" EntitySet="StockStatus" />
+            <End Role="StockStatus" EntitySet="StockStatus1" />
             <End Role="Products" EntitySet="Products" />
           </AssociationSet>
         </EntityContainer>
@@ -295,8 +295,8 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="StockStatus">
-            <EntityTypeMapping TypeName="StoreFrontModel.StockStatu">
+          <EntitySetMapping Name="StockStatus1">
+            <EntityTypeMapping TypeName="StoreFrontModel.StockStatus">
               <MappingFragment StoreEntitySet="StockStatus">
                 <ScalarProperty Name="StatusID" ColumnName="StatusID" />
                 <ScalarProperty Name="Status" ColumnName="Status" />

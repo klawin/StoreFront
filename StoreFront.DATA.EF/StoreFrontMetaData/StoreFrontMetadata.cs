@@ -15,7 +15,7 @@ namespace StoreFront.DATA.EF//.StoreFrontMetaData
         [DisplayFormat(NullDisplayText = "[-N/A-]")]
         public int CategoryID { get; set; }
 
-        [DisplayFormat(NullDisplayText = "[-N/A-]", DataFormatString ="{0}:c")]
+        [DisplayFormat(NullDisplayText = "[-N/A-]", DataFormatString ="{0:c}")]
         [Range(0, double.MaxValue, ErrorMessage = "*Must be a valid number, 0 or larger")]
         public decimal Price { get; set; }
 
