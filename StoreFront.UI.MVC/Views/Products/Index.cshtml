@@ -4,50 +4,6 @@
     ViewBag.Title = "Products";
 }
 
-@section stylesheets {
-    <link href="//cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet" />
-}
-
-
-<div class="modal fade" id="productView" tabindex="-1">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content overflow-hidden border-0">
-            <button class="btn-close p-4 position-absolute top-0 end-0 z-index-20 shadow-0" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-            <div class="modal-body p-0">
-                <div class="row align-items-stretch">
-                    <div class="col-lg-6 p-lg-0"><a class="glightbox product-view d-block h-100 bg-cover bg-center" style="background: url(img/product-5.jpg)" href="img/product-5.jpg" data-gallery="gallery1" data-glightbox="Red digital smartwatch"></a><a class="glightbox d-none" href="img/product-5-alt-1.jpg" data-gallery="gallery1" data-glightbox="Red digital smartwatch"></a><a class="glightbox d-none" href="img/product-5-alt-2.jpg" data-gallery="gallery1" data-glightbox="Red digital smartwatch"></a></div>
-                    <div class="col-lg-6">
-                        <div class="p-4 my-md-4">
-                            <ul class="list-inline mb-2">
-                                <li class="list-inline-item m-0"><i class="fas fa-star small text-warning"></i></li>
-                                <li class="list-inline-item m-0 1"><i class="fas fa-star small text-warning"></i></li>
-                                <li class="list-inline-item m-0 2"><i class="fas fa-star small text-warning"></i></li>
-                                <li class="list-inline-item m-0 3"><i class="fas fa-star small text-warning"></i></li>
-                                <li class="list-inline-item m-0 4"><i class="fas fa-star small text-warning"></i></li>
-                            </ul>
-                            <h2 class="h4">Red digital smartwatch</h2>
-                            <p class="text-muted">$250</p>
-                            <p class="text-sm mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut ullamcorper leo, eget euismod orci. Cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus. Vestibulum ultricies aliquam convallis.</p>
-                            <div class="row align-items-stretch mb-4 gx-0">
-                                <div class="col-sm-7">
-                                    <div class="border d-flex align-items-center justify-content-between py-1 px-3">
-                                        <span class="small text-uppercase text-gray mr-4 no-select">Quantity</span>
-                                        <div class="quantity">
-                                            <button class="dec-btn p-0"><i class="fas fa-caret-left"></i></button>
-                                            <input class="form-control border-0 shadow-0 p-0" type="text" value="1">
-                                            <button class="inc-btn p-0"><i class="fas fa-caret-right"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-5"><a class="btn btn-dark btn-sm w-100 h-100 d-flex align-items-center justify-content-center px-0" href="cart.html">Add to cart</a></div>
-                            </div><a class="btn btn-link text-dark text-decoration-none p-0" href="#!"><i class="far fa-heart me-2"></i>Add to wish list</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 <div class="container">
     <!-- HERO SECTION-->
     <section class="py-5 bg-light">
@@ -76,90 +32,83 @@
     }
 
     <table class="table" id="productsTable">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductImage)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            @*<th>
-                    @Html.DisplayNameFor(model => model.Description)
-                </th>*@
-            @*<th>
-                    @Html.DisplayNameFor(model => model.Category.CategoryName)
-                </th>*@
-            <th>
-                @Html.DisplayNameFor(model => model.StockStatus.Status)
-            </th>
-            @if (User.IsInRole("Admin"))
-            {
-                <th></th>
-            }
-        </tr>
-    </thead>
-
-    <tbody>
-        @foreach (var item in Model)
-        {
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ProductImage)
-                    @* TODO link product images here *@
-                </td>
-                <td>
-                    @*@Html.DisplayFor(modelItem => item.ProductName)*@
-                    @Html.ActionLink(item.ProductName, "Details", new { id = item.ProductID })
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Price)
-                </td>
-                @*<td>
-                        @Html.DisplayFor(modelItem => item.Description)
-                    </td>*@
-                @*<td>
-                        @Html.DisplayFor(modelItem => item.Category.CategoryName)
-                    </td>*@
-                <td>
-                    @Html.DisplayFor(modelItem => item.StockStatus.Status)
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductImage)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Price)
+                </th>
+                @*<th>
+                        @Html.DisplayNameFor(model => model.Description)
+                    </th>*@
+                @*<th>
+                        @Html.DisplayNameFor(model => model.Category.CategoryName)
+                    </th>*@
+                <th>
+                    @Html.DisplayNameFor(model => model.StockStatus.Status)
+                </th>
                 @if (User.IsInRole("Admin"))
                 {
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.ProductID }, new { @class = "text-info" }) |
-                        @*@Html.ActionLink("Details", "Details", new { id = item.ProductID }) |*@
-                        @if (item.StatusID == 4)
-                        {
-                            @Html.ActionLink("Delete", "Delete", new { id = item.ProductID }, new { @class = "text-danger" })
-                        }
-                        else
-                        {
-                            <span class="text-danger">In Use</span>
-                        }
-                    </td>
+                    <th></th>
                 }
             </tr>
-        }
-    </tbody>
-
-</table>
+        </thead>
+    
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @*@Html.DisplayFor(modelItem => item.ProductImage)*@
+                        <img src="~/Content/img/products/@item.ProductImage" alt="@item.ProductName" style="max-height: 150px;" />
+                    </td>
+                    <td>
+                        @*@Html.DisplayFor(modelItem => item.ProductName)*@
+                        @Html.ActionLink(item.ProductName, "Details", new { id = item.ProductID })
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    @*<td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>*@
+                    @*<td>
+                            @Html.DisplayFor(modelItem => item.Category.CategoryName)
+                        </td>*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StockStatus.Status)
+                    </td>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.ProductID }, new { @class = "text-info" }) |
+                            @*@Html.ActionLink("Details", "Details", new { id = item.ProductID }) |*@
+                            @if (item.StatusID == 4)
+                            {
+                                @Html.ActionLink("Delete", "Delete", new { id = item.ProductID }, new { @class = "text-danger" })
+                            }
+                            else
+                            {
+                                <span class="text-danger">In Use</span>
+                            }
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    
+    </table>
 
 </div>
 
 
-
-
-
-
 @section Scripts {
-
-
-    <script src="//cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-
+    
     <script>
         $(document).ready(function () {
             $('#productsTable').DataTable();
