@@ -25,7 +25,17 @@ namespace StoreFront.UI.MVC
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
-            
+
+            bundles.Add(new ScriptBundle("~/bundles/template").Include(
+                "~/Scripts/jquery-3.3.1.min.js",
+                "~/Scripts/jquery.dataTables.min.js",
+                "~/Scripts/bootstrap.min.js",
+                "~/Scripts/main.js",
+                "~/Scripts/js/countries.json",
+                "~/Scripts/js/front.js",
+                "~/Scripts/js/js-cookie.js"));
+
+
 
         }
     }

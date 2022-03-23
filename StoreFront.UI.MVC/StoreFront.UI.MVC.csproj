@@ -173,12 +173,14 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\RolesAdminController.cs" />
+    <Compile Include="Controllers\ShoppingCartController.cs" />
     <Compile Include="Controllers\UserAdminController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminViewModel.cs" />
+    <Compile Include="Models\CartItemViewModel.cs" />
     <Compile Include="Models\ContactViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -935,6 +937,7 @@
     <Folder Include="Content\vendor\swiper\angular\angular\src\" />
     <Folder Include="Content\vendor\swiper\angular\esm2015\angular\src\" />
     <Folder Include="Content\vendor\swiper\types\modules\" />
+    <Folder Include="Views\ShoppingCart\" />
     <Folder Include="_archive\vendor\choices.js\src\" />
     <Folder Include="_archive\vendor\choices.js\types\" />
     <Folder Include="_archive\vendor\swiper\angular\angular\src\" />

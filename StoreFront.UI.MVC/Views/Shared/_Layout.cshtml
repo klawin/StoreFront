@@ -52,10 +52,10 @@
                                 <a class="nav-link dropdown-toggle" id="pagesDropdown" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shop</a>
                                 <div class="dropdown-menu mt-3 shadow-sm" aria-labelledby="pagesDropdown">
                                     <a class="dropdown-item border-0 transition-link" href="@Url.Action("Index", "Products")">All Products</a>
-                                    <a class="dropdown-item border-0 transition-link" href="@Url.Action("Index", "Category")">Category</a>
-                                    @*<a class="dropdown-item border-0 transition-link" href="detail.html">Price</a>*@
-                                    <a class="dropdown-item border-0 transition-link" href="cart.html">Shopping Cart</a>
-                                    <a class="dropdown-item border-0 transition-link" href="checkout.html">Checkout</a>
+                                    <a class="dropdown-item border-0 transition-link" href="@Url.Action("Index", "Categories")">Category</a>
+                                    @*<a class="dropdown-item border-0 transition-link" href="detail.html">Price</a>
+                                        <a class="dropdown-item border-0 transition-link" href="cart.html">Shopping Cart</a>
+                                        <a class="dropdown-item border-0 transition-link" href="checkout.html">Checkout</a>*@
                                 </div>
                             </li>
                             <li class="nav-item">
@@ -70,7 +70,9 @@
                                 <a class="nav-link" href="cart.html"> <i class="fas fa-dolly-flatbed me-1 text-gray"></i>Cart<small class="text-gray fw-normal">(2)</small></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="@Url.Action("Login", "Account")"> <i class="fas fa-user me-1 text-gray fw-normal"></i>Login</a>
+
+                             @Html.Partial("_LoginPartial")
+
                             </li>
                         </ul>
                     </div>
@@ -130,7 +132,7 @@
         <script src="~/Content/vendor/nouislider/nouislider.min.js"></script>
         <script src="~/Content/vendor/swiper/swiper-bundle.min.js"></script>
         <script src="~/Content/vendor/choices.js/public/assets/scripts/choices.min.js"></script>
-        <script src="~/Scripts/js/front.js"></script>
+        @*<script src="~/Scripts/js/front.js"></script>*@
         <script src="~/Scripts/jquery-3.3.1.min.js"></script>
         <script>
             // ------------------------------------------------------- //

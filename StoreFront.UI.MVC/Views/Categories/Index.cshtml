@@ -4,30 +4,60 @@
     ViewBag.Title = "Categories";
 }
 
-<h2>Index</h2>
+<div class="container">
+    <!-- HERO SECTION-->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="row px-4 px-lg-5 py-lg-4 align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="h2 text-uppercase mb-0">@ViewBag.Title</h1>
+                </div>
+                <div class="col-lg-6 text-lg-end">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-lg-end mb-0 px-0 bg-light">
+                            <li class="breadcrumb-item"><a class="text-dark" href="@Url.Action("Index", "Home")">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">@ViewBag.Title</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.CategoryName)
-        </th>
-        <th></th>
-    </tr>
+    <section class="pt-5">
+        <header class="text-center">
+            <h2 class="h5 text-uppercase mb-4">Browse our categories</h2>
+        </header>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.CategoryName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.CategoryID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.CategoryID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.CategoryID })
-        </td>
-    </tr>
-}
+        @if (User.IsInRole("Admin"))
+        {
+            <p>
+                @Html.ActionLink("Add New Category", "Create")
+            </p>
+        }
 
-</table>
+        <div class="row stylerow">
+            <div class="col-md-4">
+                <a class="category-item" href="shop.html"><img class="img-fluid" src="~/Content/img/products/lucky-bamboo.jpg" alt="" /><strong class="category-item-title">Plants</strong></a>
+            </div>
+            <div class="col-md-4">
+                <a class="category-item" href="shop.html"><img class="img-fluid" src="~/Content/img/products/3-part-fert-1.jpg" alt="" /><strong class="category-item-title">Fertilizer</strong></a>
+            </div>
+            <div class="col-md-4">
+                <a class="category-item" href="shop.html"><img class="img-fluid" src="~/Content/img/products/3-part-fert-1.jpg" alt="" /><strong class="category-item-title">Accessories</strong></a>
+            </div>
+        </div>
+        <div class="row stylerow">
+            <div class="col-md-4">
+                <a class="category-item" href="shop.html"><img class="img-fluid" src="~/Content/img/products/leca-sack-1.jpg" alt="" /><strong class="category-item-title">Growing Medium</strong></a>
+            </div>
+            <div class="col-md-4">
+                <a class="category-item mb-4" href="shop.html"><img class="img-fluid" src="~/Content/img/products/prop-jar.jpg" alt="" /><strong class="category-item-title">Pots/Containers</strong></a>
+            </div>
+            <div class="col-md-4">
+                <a class="category-item" href="@Url.Action("Index", "Products")"><img class="img-fluid" src="~/Content/img/products/leca-sack-1.jpg" alt="" /><strong class="category-item-title">All Products</strong></a>
+            </div>
+        </div>
+    </section>
+    <br />
+</div>

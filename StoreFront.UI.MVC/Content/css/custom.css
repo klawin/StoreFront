@@ -3,3 +3,11 @@
 #productsTable{
     margin: 1em;
 }
+
+.category-item{
+    height: auto;
+}
+
+div.stylerow {
+    padding-top: 1em;
+}
