@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Drawing;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using MVC3.UI.MVC.Utilities;
 using StoreFront.DATA.EF;
 using StoreFront.UI.MVC.Models;
 
@@ -96,6 +98,7 @@ namespace StoreFront.UI.MVC.Controllers
         // GET: Products/Create
         public ActionResult Create()
         {
+            ViewBag.ProductID = new SelectList(db.Products, "ProductId", "ProductName");
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName");
             ViewBag.StatusID = new SelectList(db.StockStatus1, "StatusID", "Status");
             return View();
@@ -106,15 +109,50 @@ namespace StoreFront.UI.MVC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ProductID,ProductName,CategoryID,Price,StatusID,Description,ProductImage")] Product product)
+        public ActionResult Create([Bind(Include = "ProductID,ProductName,CategoryID,Price,StatusID,Description,ProductImage")] Product product, HttpPostedFileBase productImage)
         {
             if (ModelState.IsValid)
             {
+                #region File Upoload
+
+                string file = "NoImage.png";
+
+                if (productImage != null)
+                {
+                    file = productImage.FileName;
+                    string ext = file.Substring(file.LastIndexOf('.'));
+                    string[] goodExts = { ".jpeg", ".jpg", ".png", ".gif" };
+
+                    //Check that the uploaded file ext is in our list of acceptable ext AND check that the file size is <= 4 MB, which is the default maximum for ASP.net
+
+                    if (goodExts.Contains(ext.ToLower()) && productImage.ContentLength <= 4194304)
+                    {
+                        //Create a new file name (using a GUID)
+                        file = Guid.NewGuid() + ext;
+
+                        #region Resize Image
+                        string savePath = Server.MapPath("~/Content/imgstore/books/");
+
+                        Image convertedImage = Image.FromStream(productImage.InputStream);
+                        int maxImageSize = 500;
+                        int maxThumbSize = 100;
+
+                        ImageUtility.ResizeImage(savePath, file, convertedImage, maxImageSize, maxThumbSize);
+                        #endregion
+                    }
+
+                    //No matter what, update the PhotoUrl with the value of the file variable. 
+                    product.ProductImage = file;
+
+                }
+
+                #endregion
                 db.Products.Add(product);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
+            ViewBag.ProductID = new SelectList(db.Products, "ProductId", "ProductName");
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", product.CategoryID);
             ViewBag.StatusID = new SelectList(db.StockStatus1, "StatusID", "Status", product.StatusID);
             return View(product);
@@ -132,6 +170,7 @@ namespace StoreFront.UI.MVC.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.ProductID = new SelectList(db.Products, "ProductId", "ProductName");
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", product.CategoryID);
             ViewBag.StatusID = new SelectList(db.StockStatus1, "StatusID", "Status", product.StatusID);
             return View(product);
@@ -142,14 +181,63 @@ namespace StoreFront.UI.MVC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProductID,ProductName,CategoryID,Price,StatusID,Description,ProductImage")] Product product)
+        public ActionResult Edit([Bind(Include = "ProductID,ProductName,CategoryID,Price,StatusID,Description,ProductImage")] Product product, HttpPostedFileBase productImage)
         {
             if (ModelState.IsValid)
             {
+                #region File Upload
+
+                //Check to see if a new file has been uploaded. If not, the HiddenFor() in the View will maintain the original value
+                string file = "NoImage.png";
+
+                //If a file has been uploaded
+                if (productImage != null)
+                {
+                    //Get the name
+                    file = productImage.FileName;
+
+                    //Capture the extension
+                    string ext = file.Substring(file.LastIndexOf('.'));
+
+                    //Create a "whitelist" of accepted exts
+                    string[] goodExts = { ".jpeg", ".jpg", ".png", ".gif" };
+
+                    //Check that the uploaded file ext is in our list of acceptable extensions and that the file size is <= 4MB
+
+                    if (goodExts.Contains(ext.ToLower()) && productImage.ContentLength <= 4194304)
+                    {
+                        //Create a new file name (using a GUID)
+                        file = Guid.NewGuid() + ext;
+
+                        #region Resize Image
+
+                        string savePath = Server.MapPath("~/Content/img/products/");
+
+                        Image convertedImage = Image.FromStream(productImage.InputStream);
+
+                        int maxImageSize = 500;
+                        int maxThumbSize = 100;
+
+                        ImageUtility.ResizeImage(savePath, file, convertedImage, maxImageSize, maxThumbSize);
+                        #endregion
+
+                        if (product.ProductImage != null && product.ProductImage != "NoImage.png")
+                        {
+                            string path = Server.MapPath("~/Content/img/products/");
+                            ImageUtility.Delete(path, product.ProductImage);
+                        }
+
+                        //Update the property of the object
+                        product.ProductImage = file;
+                    }
+                }
+
+                #endregion
                 db.Entry(product).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.ProductID = new SelectList(db.Products, "ProductId", "ProductName");
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "CategoryName", product.CategoryID);
             ViewBag.StatusID = new SelectList(db.StockStatus1, "StatusID", "Status", product.StatusID);
             return View(product);
@@ -176,6 +264,11 @@ namespace StoreFront.UI.MVC.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Product product = db.Products.Find(id);
+
+            //Delete the image file
+            string path = Server.MapPath("~/Content/img/products/");
+            ImageUtility.Delete(path, product.ProductImage);
+
             db.Products.Remove(product);
             db.SaveChanges();
             return RedirectToAction("Index");

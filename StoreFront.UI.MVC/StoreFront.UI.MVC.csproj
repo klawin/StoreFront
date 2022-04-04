@@ -186,6 +186,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Utilities\ImageUtility.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\css\custom.css" />
@@ -296,6 +297,7 @@
     <Content Include="Content\img\hero-banner-alt.jpg" />
     <Content Include="Content\img\hero-banner.jpg" />
     <Content Include="Content\img\hero-shop.jpg" />
+    <Content Include="Content\img\NoImage.png" />
     <Content Include="Content\img\product-1.jpg" />
     <Content Include="Content\img\product-10.jpg" />
     <Content Include="Content\img\product-11.jpg" />

@@ -32,32 +32,242 @@
         @if (User.IsInRole("Admin"))
         {
             <p>
-                @Html.ActionLink("Add New Category", "Create")
+                @*@Html.ActionLink("Add New Category", "Create")*@
+                <button id="toggleCategoryCreate" class="btn btn-primary text-right pull-left">Add New</button>
             </p>
+            <div id="CategoryCreate">
+                @Html.Partial("CategoryCreate", new StoreFront.DATA.EF.Category())
+            </div>
         }
 
-        <div class="row stylerow">
-            <div class="col-md-4">
-                <a class="category-item" href="shop.html"><img class="img-fluid" src="~/Content/img/products/lucky-bamboo.jpg" alt="" /><strong class="category-item-title">Plants</strong></a>
+
+        <table class="table" id="CategoriesTable">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.CategoryName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CategoryID)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr id="Category-@item.CategoryID">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CategoryName)
+                    </td>
+                    <td>
+                        @*@Html.ActionLink("Edit", "Edit", new { id=item.PublisherID }) |*@
+                        <a href="" class="EditLink" id="@item.CategoryID">Edit</a> |
+
+                        @*@Html.ActionLink("Details", "Details", new { id=item.PublisherID }) |*@
+                        <a href="" class="DetailsLink" id="@item.CategoryID">Details</a> |
+
+                        @* Replaced the standard delete link/button with an AJAX delete version *@
+                        @*@Html.ActionLink("Delete", "Delete", new { id=item.PublisherID })*@
+
+                        @* Ajax.ActionLink signature for the link below:
+                            Ajax.ActionLink(string linkText, string action, string controller, object routeValues, object ajaxOptions)*@
+
+                        @* ajaxOptions includes which Method to submit the request with (post), and confirm is set to show a string with an "are you sure?" confirmation box. If successful, then we'll run some functionality (here, deleteConfirmed function). *@
+                        @Ajax.ActionLink("Delete", "AjaxDelete", "Categories", new { id = item.CategoryID},
+                        new AjaxOptions
+                        {
+                            HttpMethod = "POST",
+                            Confirm = $"Are you sure you want to delete {item.CategoryName} from Category?",
+                            OnSuccess = "deleteConfirmed",
+                            OnFailure = "deleteFailed"
+                        }
+                        )
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+        <div id="CategoryDetails"></div>
+
+        @*<div class="row stylerow">
+                <div class="col-md-4">
+                    <a class="category-item" href="shop.html"><img class="img-fluid" src="~/Content/img/products/lucky-bamboo.jpg" alt="" /><strong class="category-item-title">Plants</strong></a>
+                </div>
+                <div class="col-md-4">
+                    <a class="category-item" href="shop.html"><img class="img-fluid" src="~/Content/img/products/3-part-fert-1.jpg" alt="" /><strong class="category-item-title">Fertilizer</strong></a>
+                </div>
+                <div class="col-md-4">
+                    <a class="category-item" href="shop.html"><img class="img-fluid" src="~/Content/img/products/3-part-fert-1.jpg" alt="" /><strong class="category-item-title">Accessories</strong></a>
+                </div>
             </div>
-            <div class="col-md-4">
-                <a class="category-item" href="shop.html"><img class="img-fluid" src="~/Content/img/products/3-part-fert-1.jpg" alt="" /><strong class="category-item-title">Fertilizer</strong></a>
-            </div>
-            <div class="col-md-4">
-                <a class="category-item" href="shop.html"><img class="img-fluid" src="~/Content/img/products/3-part-fert-1.jpg" alt="" /><strong class="category-item-title">Accessories</strong></a>
-            </div>
-        </div>
-        <div class="row stylerow">
-            <div class="col-md-4">
-                <a class="category-item" href="shop.html"><img class="img-fluid" src="~/Content/img/products/leca-sack-1.jpg" alt="" /><strong class="category-item-title">Growing Medium</strong></a>
-            </div>
-            <div class="col-md-4">
-                <a class="category-item mb-4" href="shop.html"><img class="img-fluid" src="~/Content/img/products/prop-jar.jpg" alt="" /><strong class="category-item-title">Pots/Containers</strong></a>
-            </div>
-            <div class="col-md-4">
-                <a class="category-item" href="@Url.Action("Index", "Products")"><img class="img-fluid" src="~/Content/img/products/leca-sack-1.jpg" alt="" /><strong class="category-item-title">All Products</strong></a>
-            </div>
-        </div>
+            <div class="row stylerow">
+                <div class="col-md-4">
+                    <a class="category-item" href="shop.html"><img class="img-fluid" src="~/Content/img/products/leca-sack-1.jpg" alt="" /><strong class="category-item-title">Growing Medium</strong></a>
+                </div>
+                <div class="col-md-4">
+                    <a class="category-item mb-4" href="shop.html"><img class="img-fluid" src="~/Content/img/products/prop-jar.jpg" alt="" /><strong class="category-item-title">Pots/Containers</strong></a>
+                </div>
+                <div class="col-md-4">
+                    <a class="category-item" href="@Url.Action("Index", "Products")"><img class="img-fluid" src="~/Content/img/products/leca-sack-1.jpg" alt="" /><strong class="category-item-title">All Products</strong></a>
+                </div>
+            </div>*@
     </section>
     <br />
 </div>
+
+@section scripts {
+    <script>
+        // ********** AJAX DELETE ***********
+        function deleteConfirmed(response, status, data) {
+
+            //Remove the row for the desired Publisher from the table on screen.
+            var rowId = "#Category-" + response.id;
+            $("#CategoriesTable").find(rowId).remove();
+
+            //Display a status message (use AJAX response's message property)
+            $("#MessageContent").html("<div class='alert alert-success'>" + response.message + "</div>");
+        }
+
+        function deleteFailed(response, status, data) {
+
+            //Display a status message (use AJAX respone's message property)
+            $("#MessageContent").html("<div class='alert alert-danger'>Delete unsuccessful. Is this Category referenced by a product? If so, please change the product's category or delete the product.</div>");
+        }
+
+        // ********** SHOW DETAILS DIALOG BOX ***********
+        $('a.DetailsLink').click(function (e) {
+            e.preventDefault();//This prevents the default behavior. Here, that would be reloading the page.
+
+            //Target the dialog/pop-up placeholder <div>, pass it data (the clicked link's ID) then we want to apply the jQueryUI dialog plugin to make it a pop-up with various settings.
+
+            //Open the PublisherDetails partial view in the pop-up for the correct publisher
+            $("#CategoryDetails").data('cId', $(this).attr('id'))
+            .dialog({
+                width: 400,
+                height: 200,
+                open: function () {
+                    var catID = $(this).data('cId');
+                    $(this).load("/Categories/CategoryDetails/" + catID)
+                },
+                title: "Category Details",
+                modal: true,
+                resizable: false
+                });//End conversion to dialog box
+
+        });//End details button click event handler
+
+        // ********** SHOW CREATE FORM ***********
+        $("#CategoryCreate").hide();//Start with the Create form hidden
+        $("#toggleCategoryCreate").click(function () {
+            $("#CategoryCreate").toggle();//Flip between show()/hide() onclick
+        });//End of our create button click event handler
+
+        // ********** AJAX CREATE ***********
+        /*
+         * Summary: When the form is submitted, we need to format the data (serialization). The notification (MessageContent) will show status updates.
+         *
+         * jQuery Ajax will do the following:
+         *  - Call the POST AjaxCreate action in the Publishers controller
+         *  - Pass in the JSON data from the form
+         *  - On failure it will:
+         *      - Notify the user of the error
+         *  - On Success it will:
+         *      - Notify the user of success
+         *      - Reset the form
+         *      - "Add" the new row to the publishers table on this page
+         */
+
+        $("#CategoryCreateForm").submit(function (e) {
+            var formData = $(this).serializeArray();
+            console.log(formData);
+            e.preventDefault();
+
+            $.ajax({
+                url: "/Categories/AjaxCreate",
+                type: "POST",
+                data: formData,
+                dataType: "json",
+                error: function (e) {
+                    $("#MessageContent").html("<div class='alert alert-danger'>There was a problem!</div>")
+                },
+                success: function (foo) {
+                    $("#MessageContent").html("<div class='alert alert-success'>Record successfully added!</div>")
+                    $("#CategoryCreateForm")[0].reset();
+                    $(function () {
+                        var row = '<tr><td>' + foo.CategoryName
+                            + '</td><td>Refresh to view options</td></tr>';
+                        $("#CategoriesTable").append(row);
+                    });//End of the build and append row functionality
+                }//End of the success property
+            });//End of Ajax Form Submission properties
+        });//End of event handler for form submit
+
+        // ********** AJAX UPDATE ***********
+        //Holding variable for original publisher info
+        var originalContent = null;
+
+        //Wait for an <a> with the EditLink class to be clicked
+        $("a.EditLink").click(function (e) {
+            e.preventDefault();
+            var categoryID = $(this).attr("id");
+
+            //Get the <td> elements in that publisher's row
+            var row = $("#Category-" + categoryID).children();
+
+            //Assign the holding variable the values within those <td>s
+            originalContent = {
+                CatId: categoryID,
+                CatName: row[0].innerText
+            };
+
+            console.log(originalContent);
+
+            //Make a GET request for the publisher edit form/info
+            $.get("/Categories/CategoryEdit/" + categoryID, function (data) {
+                $("#Category-" + categoryID).replaceWith(
+                    '<tr id="Category-' + categoryID + '"><td colspan="5">' + data + '</td></tr>');
+            });
+
+        });
+
+        //When the user wants to save an updated publisher...
+        $(document).on("click", "#saveUpdate", function () {
+            var formData = $("#CategoryEditForm").serializeArray();
+
+            $("#MessageContent").html("<div class='alert alert-info'>Please wait...</div>");
+
+            $.ajax({
+                url: "/Categories/AjaxEdit",
+                type: "POST",
+                data: formData,
+                dataType: "json",
+                success: function (data) {
+                    $("#MessageContent").html("<div class='alert alert-success'>Your record was successfully updated!</div>");
+                    $("#CategoryEditForm")[0].reset();
+
+                    $(function () {
+                        var row = '<tr><td>' + data.CategoryName
+                            + '</td><td>Refresh to view options</td></tr>';
+
+                        $('#Category-' + data.CategoryID).replaceWith(row);//Replacing the row instead of appending (adding) it.
+
+                    });
+
+                },
+
+                error: function (e) {
+                    $("#MessageContent").html("<div class='alert alert-warning'>There was an error. Please try again or contact the site administrator.</div>");
+
+                    $(function () {
+                        var row = '<tr id="Category-' + originalContent.CatId + '"><td>' + originalContent.CatName
+                            + '</td><td>Refresh to view options</td></tr>';
+
+                        $('#Category-' + data.CategoryID).replaceWith(row);//Replacing the row instead of appending (adding) it.
+
+                    });
+                }
+            });
+        });
+
+    </script>
+}
