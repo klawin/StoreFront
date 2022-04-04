@@ -1,0 +1,30 @@
+﻿@model StoreFront.DATA.EF.Category
+
+@* We have changed the form so JavaScript will handle the submit. Added an ID to assist with targeting *@
+
+
+@using (Html.BeginForm("", "", FormMethod.Post, new { id="CategoryCreateForm"}))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        @*<h4>Publisher</h4>
+        <hr />*@
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.CategoryName, new { htmlAttributes = new { @class = "form-control", placeholder = "Category"} })
+                @Html.ValidationMessageFor(model => model.CategoryName, "", new { @class = "text-danger" })
+            </div>
+        
+            <div class="col-md-1">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+@*<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>*@
