@@ -9,7 +9,7 @@ namespace StoreFront.UI.MVC.Controllers
 {
     public class ShoppingCartController : Controller
     {
-        // GET: ShoppingCart -- Generate this view w the list template for CartItenViewModel objects (No data content)
+        // GET: ShoppingCart -- Generate this view w the list template for CartItemViewModel objects (No data content)
         public ActionResult Index()
         {
             //Pull session cart into a local variable, which we can then pass to the View
@@ -46,13 +46,13 @@ namespace StoreFront.UI.MVC.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult UpdateCart(int bookID, int qty)
+        public ActionResult UpdateCart(int productID, int qty)
         {
             //Get the cart from the Session and store it in a local variable
             Dictionary<int, CartItemViewModel> shoppingCart = (Dictionary<int, CartItemViewModel>)Session["cart"];
 
             //Target correct cart item using bookID for the key. Then change the Qty property with the qty parameter
-            shoppingCart[bookID].Qty = qty;
+            shoppingCart[productID].Qty = qty;
 
             //return the (now updated) local cart to the session 
             Session["cart"] = shoppingCart;

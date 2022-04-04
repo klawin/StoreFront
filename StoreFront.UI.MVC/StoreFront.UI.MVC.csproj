@@ -929,6 +929,7 @@
     <Content Include="Views\Categories\Index.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\EmailConfirmation.cshtml" />
+    <Content Include="Views\ShoppingCart\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -937,7 +938,6 @@
     <Folder Include="Content\vendor\swiper\angular\angular\src\" />
     <Folder Include="Content\vendor\swiper\angular\esm2015\angular\src\" />
     <Folder Include="Content\vendor\swiper\types\modules\" />
-    <Folder Include="Views\ShoppingCart\" />
     <Folder Include="_archive\vendor\choices.js\src\" />
     <Folder Include="_archive\vendor\choices.js\types\" />
     <Folder Include="_archive\vendor\swiper\angular\angular\src\" />

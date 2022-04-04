@@ -6,6 +6,9 @@ namespace StoreFront.DATA.EF//.StoreFrontMetaData
     
     public class ProductMetadata
     {
+        [Key]
+        public int ProductID { get; set; }
+
         [Required(ErrorMessage = "*Required field")]
         [StringLength(25, ErrorMessage = "*Must be 25 characters or less")]
         [Display(Name = "Product")]
@@ -42,7 +45,8 @@ namespace StoreFront.DATA.EF//.StoreFrontMetaData
 
     public class EmployeeMetadata
     {
-        //public int EmployeeID { get; set; }
+        [Key]
+        public int EmployeeID { get; set; }
 
         [Required(ErrorMessage = "*Required field")]
         [StringLength(25, ErrorMessage = "*Must be 25 characters or less")]
@@ -77,7 +81,8 @@ namespace StoreFront.DATA.EF//.StoreFrontMetaData
     #region Category Metadata
     public class CategoryMetadata
     {
-        //public int CategoryID { get; set; }
+        [Key]
+        public int CategoryID { get; set; }
 
         [Required(ErrorMessage = "*Required field")]
         [StringLength(25, ErrorMessage = "*Must be 25 characters or less")]
@@ -93,7 +98,8 @@ namespace StoreFront.DATA.EF//.StoreFrontMetaData
     
     public class DepartmentMetadata
     {
-        //public int DepartmentID { get; set; }
+        [Key]
+        public int DepartmentID { get; set; }
 
         [Required(ErrorMessage = "*Required field")]
         [StringLength(50, ErrorMessage = "*Must be 50 characters or less")]
@@ -109,7 +115,8 @@ namespace StoreFront.DATA.EF//.StoreFrontMetaData
 
     public class StockStatusMetadata
     {
-        //public int StatusID { get; set; }
+        [Key]
+        public int StatusID { get; set; }
 
         [Required(ErrorMessage = "*Required field")]
         [StringLength(25, ErrorMessage = "*Must be 25 characters or less")]

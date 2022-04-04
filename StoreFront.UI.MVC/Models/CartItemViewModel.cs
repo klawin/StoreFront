@@ -11,7 +11,7 @@ namespace StoreFront.UI.MVC.Models
     {
         [Range(1, int.MaxValue)]
         public int Qty { get; set; }
-
+        
         public Product Product { get; set; }
 
         public CartItemViewModel(int qty, Product product)
