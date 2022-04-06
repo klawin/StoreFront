@@ -113,7 +113,7 @@ namespace StoreFront.UI.MVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                #region File Upoload
+                #region File Upload
 
                 string file = "NoImage.png";
 
@@ -131,7 +131,7 @@ namespace StoreFront.UI.MVC.Controllers
                         file = Guid.NewGuid() + ext;
 
                         #region Resize Image
-                        string savePath = Server.MapPath("~/Content/imgstore/books/");
+                        string savePath = Server.MapPath("~/Content/img/products/");
 
                         Image convertedImage = Image.FromStream(productImage.InputStream);
                         int maxImageSize = 500;

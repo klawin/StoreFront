@@ -120,7 +120,7 @@
         // ********** AJAX DELETE ***********
         function deleteConfirmed(response, status, data) {
 
-            //Remove the row for the desired Publisher from the table on screen.
+            //Remove the row for the desired Category from the table on screen.
             var rowId = "#Category-" + response.id;
             $("#CategoriesTable").find(rowId).remove();
 
@@ -140,7 +140,7 @@
 
             //Target the dialog/pop-up placeholder <div>, pass it data (the clicked link's ID) then we want to apply the jQueryUI dialog plugin to make it a pop-up with various settings.
 
-            //Open the PublisherDetails partial view in the pop-up for the correct publisher
+            //Open the CategoryDetails partial view in the pop-up for the correct Category
             $("#CategoryDetails").data('cId', $(this).attr('id'))
             .dialog({
                 width: 400,
