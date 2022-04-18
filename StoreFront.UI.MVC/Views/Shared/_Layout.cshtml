@@ -9,19 +9,20 @@
     <meta name="robots" content="all,follow">
     <meta name="author" content="Kayla Nguyen">
 
-    <!-- gLightbox gallery-->
+    @* (Added to bundle)<!-- gLightbox gallery-->
     <link rel="stylesheet" href="~/Content/vendor/glightbox/css/glightbox.min.css">
     <!-- Range slider-->
     <link rel="stylesheet" href="~/Content/vendor/nouislider/nouislider.min.css">
     <!-- Choices CSS-->
-    <link rel="stylesheet" href="~/Content/vendor/choices.js/public/assets/styles/choices.min.css">
-    <!-- Swiper slider-->
-    <link rel="stylesheet" href="~/Content/vendor/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="~/Content/vendor/choices.js/public/assets/styles/choices.min.css">*@
+    <!-- Swiper slider (Added to bundle)-->
+    @*<link rel="stylesheet" href="~/Content/vendor/swiper/swiper-bundle.min.css">*@
     <!-- Google fonts-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@300;400;700&amp;display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Martel+Sans:wght@300;400;800&amp;display=swap">
-    <!-- theme stylesheet-->
-    <link rel="stylesheet" href="~/Content/css/style.default.css" id="theme-stylesheet">
+    <!-- theme stylesheet (added to bundle)-->
+    @*<link rel="stylesheet" href="~/Content/css/style.default.css" id="theme-stylesheet">*@
+    @Styles.Render("~/Content/css")
 
     @RenderSection("stylesheets", false)
 
@@ -48,15 +49,8 @@
                             <li class="nav-item">
                                 <!-- Link--><a class="nav-link active" href="@Url.Action("Index", "Home")">Home</a>
                             </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" id="pagesDropdown" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shop</a>
-                                <div class="dropdown-menu mt-3 shadow-sm" aria-labelledby="pagesDropdown">
-                                    <a class="dropdown-item border-0 transition-link" href="@Url.Action("Index", "Products")">All Products</a>
-                                    <a class="dropdown-item border-0 transition-link" href="@Url.Action("Index", "Categories")">Category</a>
-                                    @*<a class="dropdown-item border-0 transition-link" href="detail.html">Price</a>
-                                    <a class="dropdown-item border-0 transition-link" href="cart.html">Shopping Cart</a>
-                                    <a class="dropdown-item border-0 transition-link" href="checkout.html">Checkout</a>*@
-                                </div>
+                            <li class="nav-item">
+                                <!-- Link--><a class="nav-link" href="@Url.Action("Index", "Products")">Shop</a>
                             </li>
                             <li class="nav-item">
                                 <!-- Link--><a class="nav-link" href="@Url.Action("About", "Home")">About</a>
@@ -174,6 +168,8 @@
         <script src="https://cdn.jsdelivr.net/jquery.ajax.unobtrusive/3.2.4/jquery.unobtrusive-ajax.min.js"></script>
 
         @RenderSection("Scripts", false)
+
+        @Scripts.Render("~/bundles/template")
 
     </div>
 </body>

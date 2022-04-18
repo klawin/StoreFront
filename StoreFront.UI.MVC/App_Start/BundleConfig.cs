@@ -18,22 +18,29 @@ namespace StoreFront.UI.MVC
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
-            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js"));
-
-            bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
-
+            //bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
+            //          "~/Scripts/bootstrap.js",
+            //          "~/Scripts/respond.js"));
             bundles.Add(new ScriptBundle("~/bundles/template").Include(
                 "~/Scripts/jquery-3.3.1.min.js",
                 "~/Scripts/jquery.dataTables.min.js",
                 "~/Scripts/bootstrap.min.js",
+                "~/Scripts/respond.js",
                 "~/Scripts/main.js",
                 "~/Scripts/js/countries.json",
                 "~/Scripts/js/front.js",
                 "~/Scripts/js/js-cookie.js"));
+
+            bundles.Add(new StyleBundle("~/Content/css").Include(
+                      "~/Content/bootstrap.css",
+                      "~/Content/site.css",
+                      "~/Content/css/style.default.css",
+                      "~/Content/vendor/swiper/swiper-bundle.min.css",
+                      "~/Content/vendor/choices.js/public/assets/styles/choices.min.css",
+                      "~/Content/vendor/nouislider/nouislider.min.css",
+                      "~/Content/vendor/glightbox/css/glightbox.min.css"));
+
+            
 
 
 

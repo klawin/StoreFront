@@ -139,6 +139,11 @@ namespace StoreFront.UI.MVC.Controllers
 
                         ImageUtility.ResizeImage(savePath, file, convertedImage, maxImageSize, maxThumbSize);
                         #endregion
+                        if (product.ProductImage != null && product.ProductImage != "NoImage.png")
+                        {
+                            string path = Server.MapPath("~/Content/img/products/");
+                        }
+                        
                     }
 
                     //No matter what, update the PhotoUrl with the value of the file variable. 

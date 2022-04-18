@@ -104,15 +104,26 @@ namespace StoreFront.UI.MVC.Controllers
             return View(category);
         }
 
-        // POST: Categories/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        //// POST: Categories/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteConfirmed(int id)
+        //{
+        //    Category category = db.Categories.Find(id);
+        //    db.Categories.Remove(category);
+        //    db.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public JsonResult AjaxDelete(int id)
         {
             Category category = db.Categories.Find(id);
             db.Categories.Remove(category);
             db.SaveChanges();
-            return RedirectToAction("Index");
+
+            string confirmMessage = string.Format("Deleted Category '{0}' from the database.", category.CategoryName);
+            return Json(new { id = id, message = confirmMessage });
         }
 
         protected override void Dispose(bool disposing)
