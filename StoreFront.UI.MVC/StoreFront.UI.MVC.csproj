@@ -565,6 +565,7 @@
     <Content Include="configs\connections.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Scripts\jquery.dataTables.min.js" />
     <Content Include="Scripts\js\demo.js" />
     <Content Include="Scripts\js\front.js" />
     <Content Include="Scripts\js\js-cookie.js" />
